@@ -125,6 +125,16 @@
       font-weight: 600;
     }
     .popup-content .popup-phone a:hover { text-decoration: underline; }
+    .popup-content .popup-email {
+      text-align: center;
+      font-size: 13px;
+      margin-top: 4px;
+    }
+    .popup-content .popup-email a {
+      color: #1a2c8c;
+      text-decoration: none;
+    }
+    .popup-content .popup-email a:hover { text-decoration: underline; }
     .popup-content .md-list {
       display: flex;
       flex-wrap: wrap;
@@ -631,6 +641,11 @@
           specialty: "Ameristar Security Products"
         });
       }
+      const region = salesRegionByState[stateName];
+      const regionEmail = region ? salesRegionInfo[region].email : null;
+      const emailHtml = regionEmail
+        ? '<div class="popup-email"><a href="mailto:' + regionEmail + '">' + regionEmail + '</a></div>'
+        : '';
       return (
         '<div class="popup-content">' +
           '<h3>' + stateName + '</h3>' +
@@ -639,6 +654,7 @@
           '<div class="pm-row">' + allPMs.map(renderPM).join("") + '</div>' +
           mdDcmHtml +
           '<div class="popup-phone"><a href="tel:+18883333422">888-333-3422</a></div>' +
+          emailHtml +
         '</div>'
       );
     }
@@ -928,3 +944,4 @@
   </script>
 </body>
 </html>
+
