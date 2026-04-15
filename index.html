@@ -477,11 +477,9 @@
     const map = L.map('map', {
       scrollWheelZoom: false
     });
-    // Default view: fit the contiguous U.S. tightly so the country fills the
-    // visible map area (less empty ocean above/below). Alaska and Hawaii remain
-    // accessible by panning or zooming out.
+    // Default view: fit the contiguous U.S. tight to the viewport, like a
+    // standard atlas-style framing with minimal surrounding ocean.
     map.fitBounds([[24.5, -125], [49.5, -66.5]]);
-    // Nudge the zoom up by one level so the US fills more of the viewport.
     map.setZoom(map.getZoom() + 1);
 
     // Light, unobtrusive basemap. Swap for any tile provider you like.
@@ -496,38 +494,39 @@
     // Two-region split with a director for each region.
     // ---------------------------------------------------------------
     const salesRegionByState = {
-      // R1 — Mike Espinosa (blue on reference map)
-      "North Dakota": "R1", "South Dakota": "R1", "Minnesota": "R1", "Iowa": "R1",
-      "Wisconsin": "R1", "Illinois": "R1", "Michigan": "R1", "Indiana": "R1",
-      "Ohio": "R1", "Kentucky": "R1", "Tennessee": "R1", "Mississippi": "R1",
-      "Alabama": "R1", "Georgia": "R1", "Florida": "R1", "South Carolina": "R1",
-      "North Carolina": "R1", "Virginia": "R1", "West Virginia": "R1",
-      "Pennsylvania": "R1", "New York": "R1", "Maine": "R1", "New Hampshire": "R1",
-      "Vermont": "R1", "Massachusetts": "R1", "Connecticut": "R1", "Rhode Island": "R1",
-      "New Jersey": "R1", "Delaware": "R1", "Maryland": "R1", "Louisiana": "R1",
+      // R1 — West (blue) — Mike Espinosa
+      "Washington - West": "R1", "Washington - East": "R1",
+      "Oregon - West": "R1", "Oregon - East": "R1",
+      "California - North": "R1", "California - South": "R1",
+      "Nevada": "R1", "Idaho": "R1", "Montana": "R1", "Wyoming": "R1",
+      "Utah": "R1", "Arizona": "R1", "Colorado": "R1", "New Mexico": "R1",
+      "Nebraska": "R1", "Kansas": "R1", "Oklahoma": "R1", "Missouri": "R1",
+      "Arkansas": "R1", "Texas - North": "R1", "Texas - South": "R1",
+      "Alaska": "R1", "Hawaii": "R1",
 
-      // R2 — Tucker Franks (gray on reference map)
-      "Washington - West": "R2", "Washington - East": "R2",
-      "Oregon - West": "R2", "Oregon - East": "R2",
-      "California - North": "R2", "California - South": "R2",
-      "Nevada": "R2", "Idaho": "R2", "Montana": "R2", "Wyoming": "R2",
-      "Utah": "R2", "Arizona": "R2", "Colorado": "R2", "New Mexico": "R2",
-      "Nebraska": "R2", "Kansas": "R2", "Oklahoma": "R2", "Missouri": "R2",
-      "Arkansas": "R2", "Texas - North": "R2", "Texas - South": "R2",
-      "Alaska": "R2", "Hawaii": "R2", "District of Columbia": "R2"
+      // R2 — East (gray) — Tucker Franks
+      "North Dakota": "R2", "South Dakota": "R2", "Minnesota": "R2", "Iowa": "R2",
+      "Wisconsin": "R2", "Illinois": "R2", "Michigan": "R2", "Indiana": "R2",
+      "Ohio": "R2", "Kentucky": "R2", "Tennessee": "R2", "Mississippi": "R2",
+      "Alabama": "R2", "Georgia": "R2", "Florida": "R2", "South Carolina": "R2",
+      "North Carolina": "R2", "Virginia": "R2", "West Virginia": "R2",
+      "Pennsylvania": "R2", "New York": "R2", "Maine": "R2", "New Hampshire": "R2",
+      "Vermont": "R2", "Massachusetts": "R2", "Connecticut": "R2", "Rhode Island": "R2",
+      "New Jersey": "R2", "Delaware": "R2", "Maryland": "R2", "Louisiana": "R2",
+      "District of Columbia": "R2"
     };
 
     const salesRegionInfo = {
       "R1": {
         label: "West – R1",
-        color: "#808080",
+        color: "#1a2c8c",
         director: "Mike Espinosa",
         phone: "888-333-3422",
         email: "Ameristarregion1@assaabloy.com"
       },
       "R2": {
         label: "East – R2",
-        color: "#1a2c8c",
+        color: "#808080",
         director: "Tucker Franks",
         phone: "888-333-3422",
         email: "Ameristarregion2@assaabloy.com"
