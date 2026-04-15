@@ -320,8 +320,6 @@
       "Florida":       ["Jose Rodriguez"],
 
       // East
-      "Ohio":          ["D. Adams"],
-      "Indiana":       ["D. Adams"],
       "West Virginia": ["Lance McGee"],
       "Virginia":      ["Lance McGee"],
       "Maryland":      ["Lance McGee"],
@@ -330,12 +328,12 @@
       "Pennsylvania":  ["Griffin Wenger"],
       "New York":      ["Griffin Wenger"],
       "New Jersey":    ["Griffin Wenger"],
-      "Maine":         ["P. Woodring"],
-      "Vermont":       ["P. Woodring"],
-      "New Hampshire": ["P. Woodring"],
-      "Massachusetts": ["P. Woodring"],
-      "Rhode Island":  ["P. Woodring"],
-      "Connecticut":   ["P. Woodring"]
+      "Maine":         ["Patrick Woodring"],
+      "Vermont":       ["Patrick Woodring"],
+      "New Hampshire": ["Patrick Woodring"],
+      "Massachusetts": ["Patrick Woodring"],
+      "Rhode Island":  ["Patrick Woodring"],
+      "Connecticut":   ["Patrick Woodring"]
     };
 
     // Lookup of MD details. Add `photo: "slug"` once headshots are embedded.
@@ -357,10 +355,9 @@
       "Derric Rankins":        { photo: "derric-rankins",        region: "Tennessee / Kentucky" },
       "Jim Boyd":              { photo: "jim-boyd",              region: "Carolinas" },
       "Jose Rodriguez":        { photo: "jose-rodriguez",        region: "Florida" },
-      "D. Adams":              {                                 region: "Ohio / Indiana" },
       "Lance McGee":           { photo: "lance-mcgee",           region: "Mid-Atlantic" },
       "Griffin Wenger":        { photo: "griffin-wenger",        region: "Tri-State" },
-      "P. Woodring":           {                                 region: "New England" }
+      "Patrick Woodring":           {                                 region: "New England" }
     };
 
     // -----------------------------------------------------------------
@@ -478,11 +475,14 @@
     // 2. INITIALIZE THE MAP
     // ---------------------------------------------------------------
     const map = L.map('map', {
-      scrollWheelZoom: true
+      scrollWheelZoom: false
     });
-    // Default view: fit the contiguous U.S. (Alaska and Hawaii stay offscreen
-    // but remain accessible if the user pans or zooms out).
+    // Default view: fit the contiguous U.S. tightly so the country fills the
+    // visible map area (less empty ocean above/below). Alaska and Hawaii remain
+    // accessible by panning or zooming out.
     map.fitBounds([[24.5, -125], [49.5, -66.5]]);
+    // Nudge the zoom up by one level so the US fills more of the viewport.
+    map.setZoom(map.getZoom() + 1);
 
     // Light, unobtrusive basemap. Swap for any tile provider you like.
     L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
@@ -520,14 +520,14 @@
     const salesRegionInfo = {
       "R1": {
         label: "West – R1",
-        color: "#1a2c8c",
+        color: "#808080",
         director: "Mike Espinosa",
         phone: "888-333-3422",
         email: "Ameristarregion1@assaabloy.com"
       },
       "R2": {
         label: "East – R2",
-        color: "#808080",
+        color: "#1a2c8c",
         director: "Tucker Franks",
         phone: "888-333-3422",
         email: "Ameristarregion2@assaabloy.com"
@@ -570,13 +570,16 @@
 
     // Render one project manager (photo + name).
     // Looks up the embedded image in photoData; falls back gracefully if missing.
+    // If pm.specialty is set, the wrapper div gets a native browser tooltip
+    // shown on hover.
     function renderPM(pm) {
       const src = photoData[pm.photo] || "";
       const imgTag = src
         ? '<img src="' + src + '" alt="' + pm.name + '">'
         : '<div class="pm-placeholder">' + pm.name.split(" ").map(n => n[0]).join("") + '</div>';
+      const tooltip = pm.specialty ? ' title="' + pm.specialty + '"' : '';
       return (
-        '<div class="pm">' +
+        '<div class="pm"' + tooltip + '>' +
           imgTag +
           '<div class="pm-name">' + pm.name + '</div>' +
         '</div>'
@@ -613,13 +616,22 @@
       const mdDcmHtml = (mdHtml || dcmHtml)
         ? '<div class="md-dcm-row">' + mdHtml + dcmHtml + '</div>'
         : '';
-      // Combine all project managers into one section
+      // Combine all project managers into one section, tagging each with its
+      // specialty so we can show it on hover.
       const allPMs = []
-        .concat(meta.highSecurity)
-        .concat(meta.commercialIndustrial);
+        .concat(meta.highSecurity.map(function (pm) {
+          return Object.assign({}, pm, { specialty: "High Security" });
+        }))
+        .concat(meta.commercialIndustrial.map(function (pm) {
+          return Object.assign({}, pm, { specialty: "Commercial/Industrial" });
+        }));
       const aspName = aspPmByState[stateName];
       if (aspName) {
-        allPMs.push({ name: aspName, photo: (aspPmInfo[aspName] || {}).photo });
+        allPMs.push({
+          name: aspName,
+          photo: (aspPmInfo[aspName] || {}).photo,
+          specialty: "Ameristar Security Products"
+        });
       }
       return (
         '<div class="popup-content">' +
@@ -918,4 +930,3 @@
   </script>
 </body>
 </html>
-
