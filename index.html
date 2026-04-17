@@ -645,7 +645,7 @@
       const region = salesRegionByState[stateName];
       const regionEmail = region ? salesRegionInfo[region].email : null;
       const emailHtml = regionEmail
-        ? '<div class="popup-email"><a href="mailto:' + regionEmail + '">' + regionEmail + '</a></div>'
+        ? '<div class="popup-email"><a href="mailto:' + regionEmail + '" target="_top">' + regionEmail + '</a></div>'
         : '';
       return (
         '<div class="popup-content">' +
@@ -654,7 +654,7 @@
           '<div class="role-label">Project Managers</div>' +
           '<div class="pm-row">' + allPMs.map(renderPM).join("") + '</div>' +
           mdDcmHtml +
-          '<div class="popup-phone"><a href="tel:+18883333422">888-333-3422</a></div>' +
+          '<div class="popup-phone"><a href="tel:+18883333422" target="_top">888-333-3422</a></div>' +
           emailHtml +
         '</div>'
       );
