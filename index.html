@@ -410,7 +410,7 @@
     });
     // Default view: fit the contiguous U.S. tight to the viewport, like a
     // standard atlas-style framing with minimal surrounding ocean.
-    const HOME_BOUNDS = [[24.5, -140], [60, -56]];
+    const HOME_BOUNDS = [[24.5, -125], [49.5, -66.5]]; // continental US; AK/HI/Canada visible on zoom-out
     // Re-measure popup size once its images finish loading
     map.on("popupopen", function (e) {
       var el = e.popup.getElement();
