@@ -97,6 +97,18 @@
       font-weight: 600;
       color: #888;
     }
+    .popup-content .pm-role {
+      font-size: 10px;
+      color: #999;
+      text-align: center;
+      line-height: 1.15;
+      margin-top: 1px;
+      max-width: 72px;
+    }
+    /* DCM column is wide (two-line title) — let the card and name use it,
+       so long names like Phornsutiphaijit wrap to two lines, not three */
+    .popup-content .dcm-section .pm { width: auto; min-width: 72px; }
+    .popup-content .dcm-section .pm-name { max-width: 150px; }
     .popup-content .pm-name {
       font-size: 12px;
       font-weight: 500;
@@ -126,16 +138,17 @@
       align-items: flex-start;
       flex-wrap: wrap;
     }
-    /* MDs on top (max 3 per row), DCM below — consistent across all territories */
-    .md-dcm-row .md-section { flex: 1 1 100%; min-width: 0; }
-    /* One row on desktop: force the row to its natural single-line width so
-       Leaflet measures the popup correctly even before images load. */
+    /* MD and DCM side by side on the top row; DCM title wraps to 3 lines.
+       On desktop the MD row keeps its natural single-line width so Leaflet
+       measures the popup correctly even before images load. */
+    .md-dcm-row .md-section { flex: 0 1 auto; min-width: 0; }
+    .md-dcm-row .dcm-section { flex: 0 0 auto; }
     @media (min-width: 540px) {
+      .popup-content .md-dcm-row { flex-wrap: nowrap; } /* Chrome sizes wrap-rows to largest item; nowrap makes it sum MD + DCM */
       .md-dcm-row .md-section .pm-row { min-width: max-content; }
     }
-    .md-dcm-row .dcm-section { flex: 1 1 100%; }
     /* keep popups on-screen for phones; interior flex wraps to fit */
-    .leaflet-popup-content { max-width: min(470px, 94vw) !important; }
+    .leaflet-popup-content { max-width: min(530px, 94vw) !important; }
 
     .popup-content .popup-phone a {
       color: #1a2c8c;
@@ -336,6 +349,51 @@
       "Prince Edward Island": ["Kris Hobbins"]
     };
 
+    // -----------------------------------------------------------------
+    // Project Managers: three coverage regions (separate from territories)
+    // -----------------------------------------------------------------
+    const pmRegionByState = {
+      // West (PM region)
+      "Washington": "West", "Oregon": "West", "California": "West",
+      "Nevada": "West", "Idaho": "West", "Montana": "West",
+      "Wyoming": "West", "Utah": "West", "Arizona": "West",
+      "New Mexico": "West", "Colorado": "West", "North Dakota": "West",
+      "South Dakota": "West", "Nebraska": "West", "Kansas": "West",
+      "Minnesota": "West", "Iowa": "West", "Missouri": "West",
+      "Oklahoma": "West", "Arkansas": "West", "Alaska": "West", "Hawaii": "West",
+      // East (PM region)
+      "Wisconsin": "East", "Michigan": "East", "Illinois": "East",
+      "Indiana": "East", "Ohio": "East", "Pennsylvania": "East",
+      "New York": "East", "New Jersey": "East", "Maryland": "East",
+      "Delaware": "East", "District of Columbia": "East", "Virginia": "East",
+      "West Virginia": "East", "Vermont": "East", "New Hampshire": "East",
+      "Massachusetts": "East", "Connecticut": "East", "Rhode Island": "East",
+      "Maine": "East",
+      // South (PM region)
+      "Texas": "South", "Louisiana": "South", "Mississippi": "South",
+      "Alabama": "South", "Georgia": "South", "Florida": "South",
+      "South Carolina": "South", "North Carolina": "South",
+      "Tennessee": "South", "Kentucky": "South"
+    };
+
+    const projectManagersByRegion = {
+      "West": [
+        { name: "Seth Miller",   role: "High Security",         photo: "seth-miller" },
+        { name: "Bobby Kelley",  role: "High Security",         photo: "bobby-kelley" },
+        { name: "Jason Goins",   role: "Commercial Industrial", photo: "jason-goins" }
+      ],
+      "East": [
+        { name: "Nick Framel",   role: "High Security",         photo: "nick-framel" },
+        { name: "Nick Phillips", role: "High Security",         photo: "nick-phillips" },
+        { name: "Matthew James", role: "Commercial Industrial", photo: "matt-james" }
+      ],
+      "South": [
+        { name: "Tim Smith",     role: "High Security",         photo: "tim-smith" },
+        { name: "Matt Bean",     role: "High Security",         photo: "matt-bean" },
+        { name: "Matt Moring",   role: "Commercial Industrial", photo: "matt-moring" }
+      ]
+    };
+
     const territoryInfo = {
       "West": {
         mds: ["Timothy Algoe", "Sean Russell", "Marcus Tejeda", "Kit Cranford", "Melissa Busch"],
@@ -454,6 +512,15 @@
       // "first-last.jpg" to /content/dam/ameristar/com/us/en/content-fragments/contacts/sales-team-map
       // and PUBLISH it. Missing files automatically fall back to Filler.jpg.
       "placeholder-logo": "https://www.ameristarperimeter.com/content/dam/ameristar/com/us/en/content-fragments/contacts/sales-team-map/Filler.jpg",
+      "seth-miller": "https://www.ameristarperimeter.com/content/dam/ameristar/com/us/en/content-fragments/contacts/sales-team-map/seth-miller.jpg",
+      "bobby-kelley": "https://www.ameristarperimeter.com/content/dam/ameristar/com/us/en/content-fragments/contacts/sales-team-map/bobby-kelley.jpg",
+      "jason-goins": "https://www.ameristarperimeter.com/content/dam/ameristar/com/us/en/content-fragments/contacts/sales-team-map/jason-goins.jpg",
+      "nick-framel": "https://www.ameristarperimeter.com/content/dam/ameristar/com/us/en/content-fragments/contacts/sales-team-map/nick-framel.jpg",
+      "nick-phillips": "https://www.ameristarperimeter.com/content/dam/ameristar/com/us/en/content-fragments/contacts/sales-team-map/nicholas-phillips.jpg",
+      "matt-james": "https://www.ameristarperimeter.com/content/dam/ameristar/com/us/en/content-fragments/contacts/sales-team-map/matt-james.jpg",
+      "tim-smith": "https://www.ameristarperimeter.com/content/dam/ameristar/com/us/en/content-fragments/contacts/sales-team-map/tim-smith.jpg",
+      "matt-bean": "https://www.ameristarperimeter.com/content/dam/ameristar/com/us/en/content-fragments/contacts/sales-team-map/matt-bean.jpg",
+      "matt-moring": "https://www.ameristarperimeter.com/content/dam/ameristar/com/us/en/content-fragments/contacts/sales-team-map/matt-moring.jpg",
       "timothy-algoe": "https://www.ameristarperimeter.com/content/dam/ameristar/com/us/en/content-fragments/contacts/sales-team-map/timothy-algoe.jpg",
       "sean-russell": "https://www.ameristarperimeter.com/content/dam/ameristar/com/us/en/content-fragments/contacts/sales-team-map/sean-russell.jpg",
       "marcus-tejeda": "https://www.ameristarperimeter.com/content/dam/ameristar/com/us/en/content-fragments/contacts/sales-team-map/marcus-tejeda.jpg",
@@ -593,10 +660,12 @@
         ? '<img src="' + src + '" alt="' + pm.name + '" loading="lazy" onerror="this.onerror=null;this.src=\'' + fallback + '\';">'
         : '<div class="pm-placeholder">' + pm.name.split(" ").map(n => n[0]).join("") + '</div>';
       const tooltip = pm.specialty ? ' title="' + pm.specialty + '"' : '';
+      const roleCaption = pm.role ? '<div class="pm-role">' + pm.role + '</div>' : '';
       return (
         '<div class="pm"' + tooltip + '>' +
           imgTag +
           '<div class="pm-name">' + pm.name + '</div>' +
+          roleCaption +
         '</div>'
       );
     }
@@ -610,7 +679,7 @@
       const mds = marketDevelopersByState[stateName] || meta.mds || [];
       const mdHtml = mds.length
         ? '<div class="md-section">' +
-            '<div class="role-label">Market Developer' + (mds.length > 1 ? "s" : "") + '</div>' +
+            '<div class="role-label">Market<br>Developer' + (mds.length > 1 ? "s" : "") + '</div>' +
             '<div class="pm-row">' +
               mds.map(function(name) {
                 const info = marketDeveloperInfo[name] || {};
@@ -622,7 +691,7 @@
       const dcmName = meta.dcm;
       const dcmHtml = dcmName
         ? '<div class="dcm-section">' +
-            '<div class="role-label">Distribution Channel Manager</div>' +
+            '<div class="role-label">Distribution<br>Channel Manager</div>' +
             '<div class="pm-row">' +
               renderPM({ name: dcmName, photo: (dcmInfo[dcmName] || {}).photo }) +
             '</div>' +
@@ -630,6 +699,16 @@
         : '';
       const mdDcmHtml = (mdHtml || dcmHtml)
         ? '<div class="md-dcm-row">' + mdHtml + dcmHtml + '</div>'
+        : '';
+      const pmRegion = pmRegionByState[stateName];
+      const pms = pmRegion ? (projectManagersByRegion[pmRegion] || []) : [];
+      const pmSectionHtml = pms.length
+        ? '<div class="role-label">Project<br>Managers</div>' +
+          '<div class="pm-row">' +
+            pms.map(function(p) {
+              return renderPM({ name: p.name, photo: p.photo, role: p.role, specialty: p.role });
+            }).join("") +
+          '</div>'
         : '';
       const tsHtml = (meta.ts && meta.ts.length)
         ? '<div class="ts-line"><b>TS:</b> ' + meta.ts.join(", ") + '</div>'
@@ -642,6 +721,7 @@
           '<h3>' + stateName + '</h3>' +
           '<div class="territory-label">' + territory + ' Territory</div>' +
           mdDcmHtml +
+          pmSectionHtml +
           tsHtml +
           '<div class="popup-phone"><a href="tel:+18883333422" target="_top">888-333-3422</a></div>' +
           emailHtml +
@@ -651,7 +731,7 @@
 
     function onEachFeature(feature, layer) {
       const stateName = feature.properties.name;
-      layer.bindPopup(buildPopupHtml(stateName), { maxWidth: 470, minWidth: 300 });
+      layer.bindPopup(buildPopupHtml(stateName), { maxWidth: 530, minWidth: 300 });
       layer.on({
         mouseover: highlightFeature,
         mouseout: resetHighlight
