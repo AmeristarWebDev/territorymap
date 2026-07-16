@@ -256,6 +256,86 @@
 
     // Territory info: color + project managers for each role.
     // The `photo` value is a slug that looks up an embedded image in photoData below.
+    // -----------------------------------------------------------------
+    // Per-state Market Developer coverage (within each territory).
+    // States not listed fall back to the full territory roster.
+    // -----------------------------------------------------------------
+    const marketDevelopersByState = {
+      // West
+      "Oregon":        ["Timothy Algoe", "Sean Russell"],
+      "Washington":    ["Timothy Algoe", "Sean Russell"],
+      "Alaska":        ["Timothy Algoe"],
+      "Hawaii":        ["Timothy Algoe"],
+      "Idaho":         ["Sean Russell"],
+      "Montana":       ["Sean Russell"],
+      "Wyoming":       ["Sean Russell"],
+      "California":    ["Marcus Tejeda", "Kit Cranford"],
+      "Nevada":        ["Marcus Tejeda"],
+      "Arizona":       ["Melissa Busch"],
+      "New Mexico":    ["Melissa Busch"],
+
+      // Central
+      "Utah":          ["Brian Doss"],
+      "Colorado":      ["Brian Doss"],
+      "Kansas":        ["Brian Doss"],
+      "Nebraska":      ["Brian Doss"],
+      "Missouri":      ["Brian Fillous"],
+      "Kentucky":      ["Derric Rankins"],
+      "West Virginia": ["Derric Rankins"],
+      "Ohio":          ["Derric Rankins"],
+
+      // Midwest
+      "North Dakota":  ["Bryan Manke"],
+      "South Dakota":  ["Bryan Manke"],
+      "Minnesota":     ["Bryan Manke"],
+      "Wisconsin":     ["Bryan Manke"],
+      "Michigan":      ["Kris Hobbins"],
+      "Indiana":       ["Kris Hobbins"],
+      "Iowa":          ["Hunter Johnston"],
+      "Illinois":      ["Hunter Johnston"],
+
+      // South Central
+      "Texas":         ["Kellie Martin", "Peyton McBurnett", "Timothy McKenzie", "Joey Ribbons"],
+      "Oklahoma":      ["Kellie Martin"],
+      "Arkansas":      ["Joey Ribbons"],
+
+      // Northeast
+      "Pennsylvania":  ["Griffin Wenger"],
+      "New York":      ["Griffin Wenger"],
+      "New Jersey":    ["Griffin Wenger"],
+      "Maryland":      ["Griffin Wenger"],
+      "Delaware":      ["Griffin Wenger"],
+      "District of Columbia": ["Griffin Wenger"],
+      "Virginia":      ["Griffin Wenger"],
+      "Maine":         ["Patrick Woodring"],
+      "Vermont":       ["Patrick Woodring"],
+      "New Hampshire": ["Patrick Woodring"],
+      "Massachusetts": ["Patrick Woodring"],
+      "Rhode Island":  ["Patrick Woodring"],
+      "Connecticut":   ["Patrick Woodring"],
+
+      // Southeast
+      "North Carolina": ["Jim Boyd"],
+      "South Carolina": ["Jim Boyd"],
+      "Florida":        ["Jim Boyd"],
+      "Mississippi":    ["Patrick Hale"],
+      "Louisiana":      ["Patrick Hale"],
+      "Alabama":        ["Shane Oliver"],
+      "Georgia":        ["Shane Oliver"],
+      "Tennessee":      ["Derric Rankins"],
+
+      // Canada
+      "British Columbia":     ["Timothy Algoe"],
+      "Alberta":              ["Timothy Algoe"],
+      "Saskatchewan":         ["Timothy Algoe"],
+      "Manitoba":             ["Timothy Algoe"],
+      "Ontario":              ["Kris Hobbins"],
+      "Quebec":               ["Kris Hobbins"],
+      "New Brunswick":        ["Kris Hobbins"],
+      "Nova Scotia":          ["Kris Hobbins"],
+      "Prince Edward Island": ["Kris Hobbins"]
+    };
+
     const territoryInfo = {
       "West": {
         mds: ["Timothy Algoe", "Sean Russell", "Marcus Tejeda", "Kit Cranford", "Melissa Busch"],
@@ -527,7 +607,7 @@
         return "<b>" + stateName + "</b><br>Unassigned";
       }
       const meta = territoryInfo[territory];
-      const mds = meta.mds || [];
+      const mds = marketDevelopersByState[stateName] || meta.mds || [];
       const mdHtml = mds.length
         ? '<div class="md-section">' +
             '<div class="role-label">Market Developer' + (mds.length > 1 ? "s" : "") + '</div>' +
