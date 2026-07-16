@@ -411,6 +411,16 @@
     // Default view: fit the contiguous U.S. tight to the viewport, like a
     // standard atlas-style framing with minimal surrounding ocean.
     const HOME_BOUNDS = [[24.5, -125], [49.5, -66.5]]; // continental US; AK/HI/Canada visible on zoom-out
+    // Always clear the state outline when its popup closes
+    map.on("popupclose", function (e) {
+      const src = e.popup && e.popup._source;
+      if (src && geojsonLayer) {
+        geojsonLayer.resetStyle(src);
+        if (highlightedLayer === src) highlightedLayer = null;
+        info.update();
+      }
+    });
+
     // Re-measure popup size once its images finish loading
     map.on("popupopen", function (e) {
       var el = e.popup.getElement();
@@ -468,15 +478,26 @@
     // ---------------------------------------------------------------
     let geojsonLayer;
 
+    let highlightedLayer = null;
+
     function highlightFeature(e) {
       const layer = e.target;
+      if (highlightedLayer && highlightedLayer !== layer) {
+        geojsonLayer.resetStyle(highlightedLayer);
+      }
+      highlightedLayer = layer;
       layer.setStyle({ weight: 3, color: "#333", fillOpacity: 1 });
       layer.bringToFront();
       info.update(layer.feature.properties);
     }
 
     function resetHighlight(e) {
-      geojsonLayer.resetStyle(e.target);
+      const layer = e.target;
+      // Keep the outline while this state's popup is open;
+      // it gets cleared by the popupclose handler below.
+      if (layer.getPopup() && layer.getPopup().isOpen()) return;
+      geojsonLayer.resetStyle(layer);
+      if (highlightedLayer === layer) highlightedLayer = null;
       info.update();
     }
 
