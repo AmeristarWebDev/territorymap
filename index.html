@@ -406,7 +406,8 @@
     // 2. INITIALIZE THE MAP
     // ---------------------------------------------------------------
     const map = L.map('map', {
-      scrollWheelZoom: false
+      scrollWheelZoom: false,
+      zoomSnap: 0.25   // allow fractional zoom so fitBounds fills any container size
     });
     // Default view: fit the contiguous U.S. tight to the viewport, like a
     // standard atlas-style framing with minimal surrounding ocean.
