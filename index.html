@@ -39,6 +39,37 @@ const FILLER = DAM + "/Filler.jpg";
 
 const teams = [
   {
+    slug: "inside-sales-east",
+    title: "Inside Sales Team - East",
+    cols: 7,
+    src: "https://ameristarwebdev.github.io/ameristar_sales_team/images/",
+    people: [
+      ["Ashli Darling", "ashli-darling.jpg"],
+      ["Angela Price", "angela-price.jpg"],
+      ["Toni Butler", "toni-butler.jpg"],
+      ["Jessica Sadler", "jessica-sadler.jpg"],
+      ["Mary Stout", "mary-stout.jpg"],
+      ["Dustin Mullinax", "dustin-mullinax.jpg"],
+      ["Chandra Robinson", "chandra-robinson.jpg"]
+    ]
+  },
+  {
+    slug: "inside-sales-west",
+    title: "Inside Sales Team - West",
+    cols: 8,
+    src: "https://ameristarwebdev.github.io/sales-team-west/images/",
+    people: [
+      ["Mandy Dennis", "mandy-dennis.jpg"],
+      ["Patrick Hattaway", "patrick-hattaway.jpg"],
+      ["Cody Hill", "cody-hill.jpg"],
+      ["Clint Stubblefield", "clint-stubblefield.jpg"],
+      ["Will McMurphy", "will-mcmurphy.jpg"],
+      ["Nick Watts", "nick-watts.jpg"],
+      ["Kim Thorn-Irvin", "kim-thorn-irvin.jpg"],
+      ["Nic Ellsworth", DAM + "/nic-ellsworth.jpg"]
+    ]
+  },
+  {
     slug: "market-developer-east",
     title: "Market Developer Team - East",
     cols: 10,
@@ -75,51 +106,6 @@ const teams = [
     ]
   },
   {
-    slug: "dcm",
-    title: "Distribution Channel Managers",
-    cols: 6,
-    src: "https://ameristarwebdev.github.io/distribution-channel/images/",
-    people: [
-      ["Bryan Weygand", "bryan-weygand.jpg", "West"],
-      ["David Phornsutiphaijit", "david-phornsutiphaijit.jpg", "Central"],
-      ["Trevor McCauley", "trevor-mccauley.jpg", "Midwest"],
-      ["Jared Hood", "jared-hood.jpg", "South Central"],
-      ["Lance McGee", "lance-mcgee.jpg", "Northeast"],
-      ["Jose Rodriguez", "jose-rodriguez.jpg", "Southeast"]
-    ]
-  },
-  {
-    slug: "inside-sales-east",
-    title: "Inside Sales Team - East",
-    cols: 7,
-    src: "https://ameristarwebdev.github.io/ameristar_sales_team/images/",
-    people: [
-      ["Ashli Darling", "ashli-darling.jpg"],
-      ["Angela Price", "angela-price.jpg"],
-      ["Toni Butler", "toni-butler.jpg"],
-      ["Jessica Sadler", "jessica-sadler.jpg"],
-      ["Mary Stout", "mary-stout.jpg"],
-      ["Dustin Mullinax", "dustin-mullinax.jpg"],
-      ["Chandra Robinson", "chandra-robinson.jpg"]
-    ]
-  },
-  {
-    slug: "inside-sales-west",
-    title: "Inside Sales Team - West",
-    cols: 8,
-    src: "https://ameristarwebdev.github.io/sales-team-west/images/",
-    people: [
-      ["Mandy Dennis", "mandy-dennis.jpg"],
-      ["Patrick Hattaway", "patrick-hattaway.jpg"],
-      ["Cody Hill", "cody-hill.jpg"],
-      ["Clint Stubblefield", "clint-stubblefield.jpg"],
-      ["Will McMurphy", "will-mcmurphy.jpg"],
-      ["Nick Watts", "nick-watts.jpg"],
-      ["Kim Thorn-Irvin", "kim-thorn-irvin.jpg"],
-      ["Nic Ellsworth", DAM + "/nic-ellsworth.jpg"]
-    ]
-  },
-  {
     slug: "project-managers",
     title: "Project Manager Team",
     cols: 9,
@@ -145,6 +131,20 @@ const teams = [
       ["Joey Ribbens", "joey-ribbons.jpg"],
       ["Zack Wade", "zack-wade.jpg"],
       ["Gage Brooks", "gage-brooks.jpg"]
+    ]
+  },
+  {
+    slug: "dcm",
+    title: "Distribution Channel Managers",
+    cols: 6,
+    src: "https://ameristarwebdev.github.io/distribution-channel/images/",
+    people: [
+      ["Bryan Weygand", "bryan-weygand.jpg", "West"],
+      ["David Phornsutiphaijit", "david-phornsutiphaijit.jpg", "Central"],
+      ["Trevor McCauley", "trevor-mccauley.jpg", "Midwest"],
+      ["Jared Hood", "jared-hood.jpg", "South Central"],
+      ["Lance McGee", "lance-mcgee.jpg", "Northeast"],
+      ["Jose Rodriguez", "jose-rodriguez.jpg", "Southeast"]
     ]
   }
 ];
@@ -177,6 +177,32 @@ ${cards}
       </div>
     </section>`;
   }).join("\n");
+})();
+
+// =====================================================================
+// IFRAME AUTO-RESIZE
+// Reports this page's rendered height to the parent (AEM) so the iframe
+// can size itself. Fires on load, on any layout change (images arriving,
+// fonts, viewport/breakpoint changes), throttled via rAF.
+// =====================================================================
+(function () {
+  if (window.self === window.top) return; // not in an iframe, nothing to do
+
+  let queued = false;
+  function postHeight() {
+    if (queued) return;
+    queued = true;
+    requestAnimationFrame(() => {
+      queued = false;
+      const h = Math.ceil(document.documentElement.getBoundingClientRect().height);
+      window.parent.postMessage({ type: "ameristar-team-height", height: h }, "*");
+    });
+  }
+
+  new ResizeObserver(postHeight).observe(document.documentElement);
+  window.addEventListener("load", postHeight);
+  window.addEventListener("resize", postHeight);
+  postHeight();
 })();
 </script>
 </body>
