@@ -35,13 +35,13 @@
 // and PUBLISH it.
 // =====================================================================
 const DAM = "https://www.ameristarperimeter.com/content/dam/ameristar/com/us/en/content-fragments/contacts/sales-team-map";
-const FILLER = DAM + "/Filler.jpg";
+const FILLER = "images/placeholder.jpg"; // gray Ameristar logo card
 
 const teams = [
   {
     slug: "inside-sales-east",
     title: "Inside Sales Team - East",
-    src: "https://ameristarwebdev.github.io/ameristar_sales_team/images/",
+    src: "images/",
     people: [
       ["Ashli Darling", "ashli-darling.jpg"],
       ["Angela Price", "angela-price.jpg"],
@@ -55,7 +55,7 @@ const teams = [
   {
     slug: "inside-sales-west",
     title: "Inside Sales Team - West",
-    src: "https://ameristarwebdev.github.io/sales-team-west/images/",
+    src: "images/",
     people: [
       ["Mandy Dennis", "mandy-dennis.jpg"],
       ["Patrick Hattaway", "patrick-hattaway.jpg"],
@@ -70,7 +70,7 @@ const teams = [
   {
     slug: "market-developer-east",
     title: "Market Developer Team - East",
-    src: "https://ameristarwebdev.github.io/market-developer-east/images/",
+    src: "images/",
     people: [
       ["Kris Hobbins", "kris-hobbins.png"],
       ["Jim Boyd", "jim-boyd.jpg"],
@@ -80,14 +80,14 @@ const teams = [
       ["Shane Oliver", "shane-oliver.jpg"],
       ["Hunter Johnston", "hunter-johnston.jpg"],
       ["Derrik Rankins", "derrik-rankins.jpg"],
-      ["Patrick Woodring", DAM + "/Patrick-Woodring.jpg"],
+      ["Patrick Woodring", "patrick-woodring.jpg"],
       ["Brian Fillous", DAM + "/brian-fillous.jpg"]
     ]
   },
   {
     slug: "market-developer-west",
     title: "Market Developer Team - West",
-    src: "https://ameristarwebdev.github.io/market-developer-west/images/",
+    src: "images/",
     people: [
       ["Timothy Algoe", "timothy-algoe.jpg"],
       ["Peyton McBurnett", "peyton-mcburnett.jpg"],
@@ -98,13 +98,13 @@ const teams = [
       ["Brian Doss", "brian-doss.png"],
       ["Timothy McKenzie", DAM + "/timothy-mckenzie.jpg"],
       ["Kellie Martin", DAM + "/kellie-martin.jpg"],
-      ["Joey Ribbens", "joey-ribbons.jpg"]
+      ["Joey Ribbens", "joey-ribbens.jpg"]
     ]
   },
   {
     slug: "project-managers",
     title: "Project Manager Team",
-    src: "https://ameristarwebdev.github.io/project-managers/images/",
+    src: "images/",
     people: [
       ["Nick Framel", "nick-framel.jpg", "East"],
       ["Matt James", "matt-james.png", "East"],
@@ -120,9 +120,9 @@ const teams = [
   {
     slug: "security",
     title: "Ameristar Security Products",
-    src: "https://ameristarwebdev.github.io/ameristar-security/images/",
+    src: "images/",
     people: [
-      ["Joey Ribbens", "joey-ribbons.jpg"],
+      ["Joey Ribbens", "joey-ribbens.jpg"],
       ["Zack Wade", "zack-wade.jpg"],
       ["Gage Brooks", "gage-brooks.jpg"]
     ]
@@ -130,7 +130,7 @@ const teams = [
   {
     slug: "dcm",
     title: "Distribution Channel Managers",
-    src: "https://ameristarwebdev.github.io/distribution-channel/images/",
+    src: "images/",
     people: [
       ["Bryan Weygand", "bryan-weygand.jpg", "West"],
       ["David Phornsutiphaijit", "david-phornsutiphaijit.jpg", "Central"],
