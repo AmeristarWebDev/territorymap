@@ -29,12 +29,11 @@
 // Each person: [name, image, region?]
 //   image starting with "http" is used as-is;
 //   anything else is treated as a filename in this repo's images/ folder.
-// Any image that fails to load automatically falls back to Filler.jpg.
-// To add a headshot for someone on the DAM: upload "first-last.jpg" to
-// /content/dam/ameristar/com/us/en/content-fragments/contacts/sales-team-map
-// and PUBLISH it.
+// Any image that fails to load automatically shows the gray Ameristar
+// placeholder card. To add or replace a headshot: drop "first-last.jpg"
+// into this repo's images/ folder and commit. (Also add it to
+// territorymap/photos/ so the map picks it up.)
 // =====================================================================
-const DAM = "https://www.ameristarperimeter.com/content/dam/ameristar/com/us/en/content-fragments/contacts/sales-team-map";
 const FILLER = "images/placeholder.jpg"; // gray Ameristar logo card
 
 const teams = [
@@ -64,7 +63,7 @@ const teams = [
       ["Will McMurphy", "will-mcmurphy.jpg"],
       ["Nick Watts", "nick-watts.jpg"],
       ["Kim Thorn-Irvin", "kim-thorn-irvin.jpg"],
-      ["Nic Ellsworth", DAM + "/nic-ellsworth.jpg"]
+      ["Nic Ellsworth", "nic-ellsworth.jpg"]
     ]
   },
   {
@@ -81,7 +80,7 @@ const teams = [
       ["Hunter Johnston", "hunter-johnston.jpg"],
       ["Derrik Rankins", "derrik-rankins.jpg"],
       ["Patrick Woodring", "patrick-woodring.jpg"],
-      ["Brian Fillous", DAM + "/brian-fillous.jpg"]
+      ["Brian Fillous", "brian-fillous.jpg"]
     ]
   },
   {
@@ -96,8 +95,8 @@ const teams = [
       ["Kit Cranford", "kit-cranford.png"],
       ["Marcus Tejeda", "marcus-tejeda.png"],
       ["Brian Doss", "brian-doss.png"],
-      ["Timothy McKenzie", DAM + "/timothy-mckenzie.jpg"],
-      ["Kellie Martin", DAM + "/kellie-martin.jpg"],
+      ["Timothy McKenzie", "timothy-mckenzie.jpg"],
+      ["Kellie Martin", "kellie-martin.jpg"],
       ["Joey Ribbens", "joey-ribbens.jpg"]
     ]
   },
