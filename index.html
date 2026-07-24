@@ -10,13 +10,13 @@
   .team-section { margin-bottom: 40px; }
   .team-section:last-child { margin-bottom: 0; }
   .team-section h2 { font-size: 26px; font-weight: 600; color: #1a1a1a; margin-bottom: 16px; padding-bottom: 8px; border-bottom: 2px solid #0033a0; }
-  .team-grid { display: grid; gap: 14px 8px; }
+  .team-grid { display: grid; grid-template-columns: repeat(10, minmax(0, 1fr)); gap: 14px 8px; }
   .headshot-card { text-align: center; }
   .headshot-img-wrapper { width: 100%; aspect-ratio: 4 / 5; overflow: hidden; background: #e8e8e8; margin-bottom: 10px; }
   .headshot-img { width: 100%; height: 100%; object-fit: cover; object-position: center 20%; display: block; }
   .headshot-name { font-size: 13px; font-weight: 600; color: #1a1a1a; margin-bottom: 2px; line-height: 1.25; min-height: 2.5em; display: flex; align-items: flex-start; justify-content: center; text-align: center; overflow-wrap: break-word; word-break: break-word; hyphens: auto; }
   .headshot-region { font-size: 12px; color: #666; font-weight: 400; }
-  @media (max-width: 600px) { .team-grid { grid-template-columns: repeat(4, minmax(0, 1fr)) !important; } .team-section h2 { font-size: 18px; } .headshot-name { font-size: 12px; } }
+  @media (max-width: 600px) { .team-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); } .team-section h2 { font-size: 18px; } .headshot-name { font-size: 12px; } }
 </style>
 </head>
 <body>
@@ -41,7 +41,6 @@ const teams = [
   {
     slug: "inside-sales-east",
     title: "Inside Sales Team - East",
-    cols: 7,
     src: "https://ameristarwebdev.github.io/ameristar_sales_team/images/",
     people: [
       ["Ashli Darling", "ashli-darling.jpg"],
@@ -56,7 +55,6 @@ const teams = [
   {
     slug: "inside-sales-west",
     title: "Inside Sales Team - West",
-    cols: 8,
     src: "https://ameristarwebdev.github.io/sales-team-west/images/",
     people: [
       ["Mandy Dennis", "mandy-dennis.jpg"],
@@ -72,7 +70,6 @@ const teams = [
   {
     slug: "market-developer-east",
     title: "Market Developer Team - East",
-    cols: 10,
     src: "https://ameristarwebdev.github.io/market-developer-east/images/",
     people: [
       ["Kris Hobbins", "kris-hobbins.png"],
@@ -90,7 +87,6 @@ const teams = [
   {
     slug: "market-developer-west",
     title: "Market Developer Team - West",
-    cols: 10,
     src: "https://ameristarwebdev.github.io/market-developer-west/images/",
     people: [
       ["Timothy Algoe", "timothy-algoe.jpg"],
@@ -108,7 +104,6 @@ const teams = [
   {
     slug: "project-managers",
     title: "Project Manager Team",
-    cols: 9,
     src: "https://ameristarwebdev.github.io/project-managers/images/",
     people: [
       ["Nick Framel", "nick-framel.jpg", "East"],
@@ -125,7 +120,6 @@ const teams = [
   {
     slug: "security",
     title: "Ameristar Security Products",
-    cols: 6,
     src: "https://ameristarwebdev.github.io/ameristar-security/images/",
     people: [
       ["Joey Ribbens", "joey-ribbons.jpg"],
@@ -136,7 +130,6 @@ const teams = [
   {
     slug: "dcm",
     title: "Distribution Channel Managers",
-    cols: 6,
     src: "https://ameristarwebdev.github.io/distribution-channel/images/",
     people: [
       ["Bryan Weygand", "bryan-weygand.jpg", "West"],
@@ -172,7 +165,7 @@ const teams = [
     }).join("\n");
     return `<section class="team-section" id="${t.slug}">
       <h2>${esc(t.title)}</h2>
-      <div class="team-grid" style="grid-template-columns: repeat(${t.cols}, minmax(0, 1fr));">
+      <div class="team-grid">
 ${cards}
       </div>
     </section>`;
