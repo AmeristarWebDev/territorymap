@@ -6,6 +6,9 @@
 <title>Find Your Team - Ameristar</title>
 <style>
   * { box-sizing: border-box; margin: 0; padding: 0; }
+  /* Hide the iframe's internal scrollbar (scrolling still works via wheel/touch) */
+  html { scrollbar-width: none; -ms-overflow-style: none; }
+  html::-webkit-scrollbar, body::-webkit-scrollbar { width: 0; height: 0; display: none; }
   body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif; background: #ffffff; color: #1a1a1a; padding: 0; max-width: 1400px; margin: 0 auto; line-height: 1.4; }
   .team-section { margin-bottom: 40px; }
   .team-section:last-child { margin-bottom: 0; }
@@ -38,32 +41,36 @@ const FILLER = "images/placeholder.jpg"; // gray Ameristar logo card
 
 const teams = [
   {
-    slug: "inside-sales-east",
-    title: "Inside Sales Team - East",
+    slug: "sales-managers",
+    title: "Sales Managers",
     src: "images/",
     people: [
-      ["Ashli Darling", "ashli-darling.jpg"],
-      ["Angela Price", "angela-price.jpg"],
-      ["Toni Butler", "toni-butler.jpg"],
-      ["Jessica Sadler", "jessica-sadler.jpg"],
-      ["Mary Stout", "mary-stout.jpg"],
-      ["Dustin Mullinax", "dustin-mullinax.jpg"],
-      ["Chandra Robinson", "chandra-robinson.jpg"]
+      ["Misty Singleton", "misty-singleton.jpg"],
+      ["Matthew Moring", "matt-morning.png"],
+      ["Sarah Baker", "sarah-baker.jpg"]
     ]
   },
   {
-    slug: "inside-sales-west",
-    title: "Inside Sales Team - West",
+    slug: "territory-sales",
+    title: "Territory Sales Team",
     src: "images/",
     people: [
-      ["Mandy Dennis", "mandy-dennis.jpg"],
-      ["Patrick Hattaway", "patrick-hattaway.jpg"],
-      ["Cody Hill", "cody-hill.jpg"],
-      ["Clint Stubblefield", "clint-stubblefield.jpg"],
-      ["Will McMurphy", "will-mcmurphy.jpg"],
-      ["Nick Watts", "nick-watts.jpg"],
-      ["Kim Thorn-Irvin", "kim-thorn-irvin.jpg"],
-      ["Nic Ellsworth", "nic-ellsworth.jpg"]
+      ["Toni Butler", "toni-butler.jpg", "Northeast"],
+      ["Devin Jarrett", "devin-jarrett.jpg", "Northeast"],
+      ["Ashli Darling", "ashli-darling.jpg", "Southeast"],
+      ["Kim Thorn-Irvin", "kim-thorn-irvin.jpg", "Southeast"],
+      ["Ellen Henderson", "ellen-henderson.jpg", "Southeast"],
+      ["Clint Stubblefield", "clint-stubblefield.jpg", "Central"],
+      ["Cody Hill", "cody-hill.jpg", "Central"],
+      ["Nick Watts", "nick-watts.jpg", "West"],
+      ["Nic Ellsworth", "nic-ellsworth.jpg", "West"],
+      ["Will McMurphy", "will-mcmurphy.jpg", "West"],
+      ["Open Position", "open-position.jpg", "West"],
+      ["Patrick Hattaway", "patrick-hattaway.jpg", "South Central"],
+      ["Mary Stout", "mary-stout.jpg", "South Central"],
+      ["Chandra Robinson", "chandra-robinson.jpg", "South Central"],
+      ["Jessica Sadler", "jessica-sadler.jpg", "Midwest"],
+      ["Angela Price", "angela-price.jpg", "Midwest"]
     ]
   },
   {
@@ -105,15 +112,15 @@ const teams = [
     title: "Project Manager Team",
     src: "images/",
     people: [
-      ["Nick Framel", "nick-framel.jpg", "East"],
-      ["Matt James", "matt-james.png", "East"],
-      ["Nicholas Phillips", "nicholas-phillips.jpg", "East"],
-      ["Seth Miller", "seth-miller.jpg", "West"],
-      ["Bobby Kelley", "bobby-kelley.png", "West"],
-      ["Jason Goins", "jason-goins.jpg", "West"],
-      ["Tim Smith", "tim-smith.png", "South"],
-      ["Matt Bean", "matt-bean.jpg", "South"],
-      ["Matt Morning", "matt-morning.png", "South"]
+      ["Nick Framel", "nick-framel.jpg", "Team Singleton"],
+      ["Nicholas Phillips", "nicholas-phillips.jpg", "Team Singleton"],
+      ["Dustin Mullinax", "dustin-mullinax.jpg", "Team Singleton"],
+      ["Bobby Kelley", "bobby-kelley.png", "Team Moring"],
+      ["Jason Goins", "jason-goins.jpg", "Team Moring"],
+      ["Matthew James", "matt-james.png", "Team Moring"],
+      ["Tim Smith", "tim-smith.png", "Team Baker"],
+      ["Matt Bean", "matt-bean.jpg", "Team Baker"],
+      ["Seth Miller", "seth-miller.jpg", "Team Baker"]
     ]
   },
   {
